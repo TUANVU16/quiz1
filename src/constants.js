@@ -1,12 +1,6 @@
 export const jsquizz = {
-    questions: [
+    questions: 
         [
-            {
-              id: 0,
-              question: "______ provide a way to pass data from one component to another. Fill in the blank.",
-              type: "FIB",
-              correctAnswer: "props"
-            },
             {
               id: 1,
               question: "Which of the following is used in React.js to increase performance?",
@@ -68,5 +62,5 @@ export const jsquizz = {
               correctAnswer: "JavaScript compiler"
             }
           ]
-    ]
+    
 }

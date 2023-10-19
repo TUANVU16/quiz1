@@ -1,6 +1,19 @@
-const Quiz = () => {
+import { useState } from "react";
+
+
+const Quiz = ({questions}) => {
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const {question, choices, correctAnswer} = questions[currentQuestion];
+    const questionLength = questions.length;
+
     return (
-        "<div>hello anh em</div>"
+        <div className="quiz-container">
+            <>
+                <span className="active-question-no">{currentQuestion +1}</span>
+                <span className="total-question">/{questionLength}</span>
+
+            </>
+        </div>
     )
 }
 
