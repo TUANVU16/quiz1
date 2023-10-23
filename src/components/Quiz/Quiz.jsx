@@ -11,10 +11,11 @@ const Quiz = ({questions}) => {
     const [result, setResult] = useState(resultInitialState);
     const [showresult, setShowresult] = useState(false);
     const [showAnswerTimer, setShowAnswerTimer] = useState(true)
+    const [inputAnswer, setInputAnswer] = useState()
 
 
 
-    const {question, choices, correctAnswer} = questions[currentQuestion];
+    const {question, choices, correctAnswer, type} = questions[currentQuestion];
     const questionLength = questions.length;
 
     const onAnswerClick = (answer, index) =>{
@@ -65,6 +66,41 @@ const Quiz = ({questions}) => {
 
     }
 
+    const handleInputChange =(eve) =>{
+        setInputAnswer(eve.target.value);
+
+        if (eve.target.value === correctAnswer){
+            setAnswer(true);
+        }else{
+            setAnswer(false)
+        }
+
+    }
+
+    const getAnswerUI = () => {
+        if(type === "FIB"){
+            return <input value={inputAnswer} onChange={handleInputChange} />
+        }
+
+        return(
+            <ul>
+            {
+                choices.map((answer, index) =>(
+                    <li 
+                    key={answer}
+                    onClick={() => onAnswerClick(answer, index)}
+                    className={answerIdx === index ? "selected-answer" : null}
+                    >
+                        {answer}
+                    </li>
+                ))
+            }
+        </ul>
+
+        );
+
+    }
+
     return (
         <div className="quiz-container">
             {!showresult ? (
@@ -73,23 +109,11 @@ const Quiz = ({questions}) => {
                 <span className="active-question-no">{currentQuestion +1}</span>
                 <span className="total-question">/{questionLength}</span>
                 <h2>{question}</h2>
-                <ul>
-                    {
-                        choices.map((answer, index) =>(
-                            <li 
-                            key={answer}
-                            onClick={() => onAnswerClick(answer, index)}
-                            className={answerIdx === index ? "selected-answer" : null}
-                            >
-                                {answer}
-                            </li>
-                        ))
-                    }
-                </ul>
+                {getAnswerUI()}
                 <div className="footer">
                     <button 
                         onClick={() =>onClickNext(answer)}
-                        disabled = {answerIdx === null}
+                        disabled = {answerIdx === null && !inputAnswer}
                     >
                         {currentQuestion === questions.length -1 ? "finish" : "next"}
                     </button>
